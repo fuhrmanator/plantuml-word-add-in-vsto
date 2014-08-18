@@ -26,7 +26,6 @@ Partial Class PlantUML_editor
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Preview = New System.Windows.Forms.WebBrowser()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.PreviewButton = New System.Windows.Forms.Button()
         Me.InsertButton = New System.Windows.Forms.Button()
         Me.EditSelectedImageButton = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -35,6 +34,7 @@ Partial Class PlantUML_editor
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -60,7 +60,7 @@ Partial Class PlantUML_editor
         '
         Me.Preview.AllowWebBrowserDrop = False
         Me.Preview.IsWebBrowserContextMenuEnabled = False
-        Me.Preview.Location = New System.Drawing.Point(3, 32)
+        Me.Preview.Location = New System.Drawing.Point(3, 45)
         Me.Preview.MinimumSize = New System.Drawing.Size(20, 20)
         Me.Preview.Name = "Preview"
         Me.Preview.Size = New System.Drawing.Size(274, 375)
@@ -69,38 +69,33 @@ Partial Class PlantUML_editor
         '
         'FlowLayoutPanel1
         '
-        Me.FlowLayoutPanel1.Controls.Add(Me.PreviewButton)
         Me.FlowLayoutPanel1.Controls.Add(Me.InsertButton)
         Me.FlowLayoutPanel1.Controls.Add(Me.EditSelectedImageButton)
+        Me.FlowLayoutPanel1.Controls.Add(Me.Label4)
         Me.FlowLayoutPanel1.Controls.Add(Me.Preview)
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 162)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(280, 407)
         Me.FlowLayoutPanel1.TabIndex = 4
         '
-        'PreviewButton
-        '
-        Me.PreviewButton.Location = New System.Drawing.Point(3, 3)
-        Me.PreviewButton.Name = "PreviewButton"
-        Me.PreviewButton.Size = New System.Drawing.Size(55, 23)
-        Me.PreviewButton.TabIndex = 0
-        Me.PreviewButton.Text = "Preview"
-        Me.PreviewButton.UseVisualStyleBackColor = True
-        '
         'InsertButton
         '
-        Me.InsertButton.Location = New System.Drawing.Point(64, 3)
+        Me.InsertButton.AutoSize = True
+        Me.InsertButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.InsertButton.Location = New System.Drawing.Point(3, 3)
         Me.InsertButton.Name = "InsertButton"
-        Me.InsertButton.Size = New System.Drawing.Size(47, 23)
+        Me.InsertButton.Size = New System.Drawing.Size(43, 23)
         Me.InsertButton.TabIndex = 1
         Me.InsertButton.Text = "Insert"
         Me.InsertButton.UseVisualStyleBackColor = True
         '
         'EditSelectedImageButton
         '
-        Me.EditSelectedImageButton.Location = New System.Drawing.Point(117, 3)
+        Me.EditSelectedImageButton.AutoSize = True
+        Me.EditSelectedImageButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.EditSelectedImageButton.Location = New System.Drawing.Point(52, 3)
         Me.EditSelectedImageButton.Name = "EditSelectedImageButton"
-        Me.EditSelectedImageButton.Size = New System.Drawing.Size(81, 23)
+        Me.EditSelectedImageButton.Size = New System.Drawing.Size(80, 23)
         Me.EditSelectedImageButton.TabIndex = 2
         Me.EditSelectedImageButton.Text = "Edit Selected"
         Me.EditSelectedImageButton.UseVisualStyleBackColor = True
@@ -166,6 +161,17 @@ Partial Class PlantUML_editor
         Me.LinkLabel2.TabStop = True
         Me.LinkLabel2.Text = "christopher.fuhrman@etsmtl.ca"
         '
+        'Label4
+        '
+        Me.Label4.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(3, 29)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(169, 13)
+        Me.Label4.TabIndex = 4
+        Me.Label4.Text = "Image preview via PlantUML.com:"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'PlantUML_editor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -182,6 +188,7 @@ Partial Class PlantUML_editor
         Me.Name = "PlantUML_editor"
         Me.Size = New System.Drawing.Size(280, 731)
         Me.FlowLayoutPanel1.ResumeLayout(False)
+        Me.FlowLayoutPanel1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -191,7 +198,6 @@ Partial Class PlantUML_editor
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Preview As System.Windows.Forms.WebBrowser
     Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents PreviewButton As System.Windows.Forms.Button
     Friend WithEvents InsertButton As System.Windows.Forms.Button
     Friend WithEvents EditSelectedImageButton As System.Windows.Forms.Button
     Friend WithEvents Label2 As System.Windows.Forms.Label
@@ -200,5 +206,6 @@ Partial Class PlantUML_editor
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
     Friend WithEvents LinkLabel2 As System.Windows.Forms.LinkLabel
+    Friend WithEvents Label4 As System.Windows.Forms.Label
 
 End Class

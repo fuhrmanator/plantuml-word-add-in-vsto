@@ -9,14 +9,29 @@ Public Class PlantUML_editor
 
 
     Private Sub InsertButtonClick(sender As Object, e As EventArgs) Handles InsertButton.Click
-        Dim currentSelection As Word.Selection = Globals.ThisAddIn.Application.ActiveWindow.Selection
+        Dim currentSelection As Word.Selection = Globals.PlantUMLGizmoAddIn.Application.ActiveWindow.Selection
+        Dim replaced As Boolean = currentSelection.Type = WdSelectionType.wdSelectionInlineShape
         Dim range As Word.Range = currentSelection.Range
+
+        'delete selected image (replace behavior)
+        If replaced Then
+            currentSelection.Delete(Word.WdUnits.wdCharacter, currentSelection.End - currentSelection.Start)
+        End If
+
         Dim picture = range.InlineShapes.AddPicture(Preview.Url.AbsoluteUri, True)
-        Globals.ThisAddIn.Application.ActiveDocument.Hyperlinks.Add(picture, Preview.Url.AbsoluteUri)
-        'TODO move cursor after inserted picture
+        Globals.PlantUMLGizmoAddIn.Application.ActiveDocument.Hyperlinks.Add(picture, Preview.Url.AbsoluteUri)
+        'move cursor after inserted picture
+        currentSelection.MoveRight(Word.WdUnits.wdCharacter, 1, Word.WdMovementType.wdMove)
+
+        'replace selected image
+        If replaced Then
+            'Move cursor after selection
+            Dim collapseEnd = Word.WdCollapseDirection.wdCollapseEnd
+            range.Collapse(collapseEnd)
+        End If
     End Sub
 
-    Private Sub PreviewOnChange(sender As Object, e As EventArgs) Handles PreviewButton.Click, SourceCode.TextChanged
+    Private Sub PreviewOnChange(sender As Object, e As EventArgs) Handles SourceCode.TextChanged
         Dim sanitizedText As String
         'TODO Throttle updates as typing occurs
         sanitizedText = System.Web.HttpUtility.UrlDecode(System.Web.HttpUtility.UrlEncode(SourceCode.Text).Replace("+", "%20"))
@@ -24,7 +39,7 @@ Public Class PlantUML_editor
     End Sub
     Private Sub EditSelectedImageButtonClick(sender As Object, e As EventArgs) Handles EditSelectedImageButton.Click
         ' find selected image
-        Dim active As Window = Globals.ThisAddIn.Application.ActiveWindow
+        Dim active As Window = Globals.PlantUMLGizmoAddIn.Application.ActiveWindow
         If active.Selection.Type = WdSelectionType.wdSelectionInlineShape Then
             Dim image = active.Selection.InlineShapes.Item(1)
             ' get image's hyperlink
