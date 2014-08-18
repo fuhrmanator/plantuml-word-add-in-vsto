@@ -35,7 +35,7 @@
     <PublishUrl>\\saumon.ens.ad.etsmtl.ca\FSWEB\profs\cfuhrman\PlantUMLGizmoWord\</PublishUrl>
     <InstallUrl>http://profs.etsmtl.ca/cfuhrman/PlantUMLGizmoWord/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.6</ApplicationVersion>
+    <ApplicationVersion>1.0.0.7</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -213,18 +213,27 @@
     <Compile Include="PlantUML editor.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ThisAddIn.vb">
+    <Compile Include="PlantUMLGizmoRibbon.Designer.vb">
+      <DependentUpon>PlantUMLGizmoRibbon.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PlantUMLGizmoRibbon.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PlantUMLGizmoAddIn.vb">
       <SubType>Code</SubType>
     </Compile>
     <EmbeddedResource Include="PlantUML editor.resx">
       <DependentUpon>PlantUML editor.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PlantUMLGizmoRibbon.resx">
+      <DependentUpon>PlantUMLGizmoRibbon.vb</DependentUpon>
+    </EmbeddedResource>
     <None Include="PlantUML add-in_TemporaryKey.pfx" />
-    <None Include="ThisAddIn.Designer.xml">
-      <DependentUpon>ThisAddIn.vb</DependentUpon>
+    <None Include="PlantUMLGizmoAddIn.Designer.xml">
+      <DependentUpon>PlantUMLGizmoAddIn.vb</DependentUpon>
     </None>
-    <Compile Include="ThisAddIn.Designer.vb">
-      <DependentUpon>ThisAddIn.Designer.xml</DependentUpon>
+    <Compile Include="PlantUMLGizmoAddIn.Designer.vb">
+      <DependentUpon>PlantUMLGizmoAddIn.Designer.xml</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -289,7 +298,7 @@
       <FlavorProperties GUID="{BAA0C2D2-18E2-41B9-852F-F413020CAA33}">
         <ProjectProperties HostName="Word" HostPackage="{29A7B9D7-A7F1-4328-8EF0-6B2D1A56B2C1}" OfficeVersion="14.0" VstxVersion="4.0" ApplicationType="Word" Language="vb" TemplatesPath="" DebugInfoExeName="#Software\Microsoft\Office\14.0\Word\InstallRoot\Path#WINWORD.EXE" DebugInfoCommandLine="/x" AddItemTemplatesGuid="{DCFE8D25-4715-4C33-9EAB-A34A9EBC9544}" />
         <Host Name="Word" PublishedHash="69C324AB27932AA2FBF2B7EA72250886FF164DE6" IconIndex="0">
-          <HostItem Name="ThisAddIn" Code="ThisAddIn.vb" CanonicalName="AddIn" PublishedHash="8DB4E9B4B91A1CB36C3EB1356DE8DC7251E40D5D" CanActivate="false" IconIndex="1" Blueprint="ThisAddIn.Designer.xml" GeneratedCode="ThisAddIn.Designer.vb" />
+          <HostItem Name="ThisAddIn" Code="PlantUMLGizmoAddIn.vb" CanonicalName="AddIn" PublishedHash="8DB4E9B4B91A1CB36C3EB1356DE8DC7251E40D5D" CanActivate="false" IconIndex="1" Blueprint="PlantUMLGizmoAddIn.Designer.xml" GeneratedCode="PlantUMLGizmoAddIn.Designer.vb" />
         </Host>
       </FlavorProperties>
     </VisualStudio>

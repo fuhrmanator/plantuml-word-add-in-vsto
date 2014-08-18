@@ -16,7 +16,7 @@ Option Explicit On
 '''
 <Microsoft.VisualStudio.Tools.Applications.Runtime.StartupObjectAttribute(0), _
  Global.System.Security.Permissions.PermissionSetAttribute(Global.System.Security.Permissions.SecurityAction.Demand, Name:="FullTrust")> _
-Partial Public NotInheritable Class ThisAddIn
+Partial Public NotInheritable Class PlantUMLGizmoAddIn
     Inherits Microsoft.Office.Tools.AddInBase
 
     Friend WithEvents CustomTaskPanes As Microsoft.Office.Tools.CustomTaskPaneCollection
@@ -41,7 +41,7 @@ Partial Public NotInheritable Class ThisAddIn
     Protected Overrides Sub Initialize()
         MyBase.Initialize()
         Me.Application = Me.GetHostItem(Of Microsoft.Office.Interop.Word.Application)(GetType(Microsoft.Office.Interop.Word.Application), "Application")
-        Globals.ThisAddIn = Me
+        Globals.PlantUMLGizmoAddIn = Me
         Global.System.Windows.Forms.Application.EnableVisualStyles()
         Me.InitializeCachedData()
         Me.InitializeControls()
@@ -179,19 +179,19 @@ Partial Friend NotInheritable Class Globals
         MyBase.New()
     End Sub
 
-    Private Shared _ThisAddIn As ThisAddIn
+    Private Shared _PlantUMLGizmoAddIn As PlantUMLGizmoAddIn
 
     Private Shared _factory As Global.Microsoft.Office.Tools.Word.ApplicationFactory
 
     Private Shared _ThisRibbonCollection As ThisRibbonCollection
 
-    Friend Shared Property ThisAddIn() As ThisAddIn
+    Friend Shared Property PlantUMLGizmoAddIn() As PlantUMLGizmoAddIn
         Get
-            Return _ThisAddIn
+            Return _PlantUMLGizmoAddIn
         End Get
-        Set(ByVal value As ThisAddIn)
-            If (_ThisAddIn Is Nothing) Then
-                _ThisAddIn = value
+        Set(value As PlantUMLGizmoAddIn)
+            If (_PlantUMLGizmoAddIn Is Nothing) Then
+                _PlantUMLGizmoAddIn = value
             Else
                 Throw New System.NotSupportedException()
             End If
@@ -202,7 +202,7 @@ Partial Friend NotInheritable Class Globals
         Get
             Return _factory
         End Get
-        Set(ByVal value As Global.Microsoft.Office.Tools.Word.ApplicationFactory)
+        Set(value As Global.Microsoft.Office.Tools.Word.ApplicationFactory)
             If (_factory Is Nothing) Then
                 _factory = value
             Else
