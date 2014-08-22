@@ -35,7 +35,7 @@
     <PublishUrl>\\saumon.ens.ad.etsmtl.ca\FSWEB\profs\cfuhrman\PlantUMLGizmoWord\</PublishUrl>
     <InstallUrl>http://profs.etsmtl.ca/cfuhrman/PlantUMLGizmoWord/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.7</ApplicationVersion>
+    <ApplicationVersion>1.0.0.10</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -149,6 +149,7 @@
     <Reference Include="Accessibility" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
@@ -207,6 +208,7 @@
   -->
   <ItemGroup>
     <AppDesigner Include="My Project\" />
+    <Compile Include="GoogleTracker.vb" />
     <Compile Include="PlantUML editor.Designer.vb">
       <DependentUpon>PlantUML editor.vb</DependentUpon>
     </Compile>
@@ -298,7 +300,7 @@
       <FlavorProperties GUID="{BAA0C2D2-18E2-41B9-852F-F413020CAA33}">
         <ProjectProperties HostName="Word" HostPackage="{29A7B9D7-A7F1-4328-8EF0-6B2D1A56B2C1}" OfficeVersion="14.0" VstxVersion="4.0" ApplicationType="Word" Language="vb" TemplatesPath="" DebugInfoExeName="#Software\Microsoft\Office\14.0\Word\InstallRoot\Path#WINWORD.EXE" DebugInfoCommandLine="/x" AddItemTemplatesGuid="{DCFE8D25-4715-4C33-9EAB-A34A9EBC9544}" />
         <Host Name="Word" PublishedHash="69C324AB27932AA2FBF2B7EA72250886FF164DE6" IconIndex="0">
-          <HostItem Name="ThisAddIn" Code="PlantUMLGizmoAddIn.vb" CanonicalName="AddIn" PublishedHash="8DB4E9B4B91A1CB36C3EB1356DE8DC7251E40D5D" CanActivate="false" IconIndex="1" Blueprint="PlantUMLGizmoAddIn.Designer.xml" GeneratedCode="PlantUMLGizmoAddIn.Designer.vb" />
+          <HostItem Name="ThisAddIn" Code="PlantUMLGizmoAddIn.vb" CanonicalName="AddIn" PublishedHash="95C2C1A99ECEA542B07F0D52866E47FB60D659CF" CanActivate="false" IconIndex="1" Blueprint="PlantUMLGizmoAddIn.Designer.xml" GeneratedCode="PlantUMLGizmoAddIn.Designer.vb" />
         </Host>
       </FlavorProperties>
     </VisualStudio>

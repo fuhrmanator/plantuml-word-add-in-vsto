@@ -29,6 +29,9 @@ Public Class PlantUML_editor
             Dim collapseEnd = Word.WdCollapseDirection.wdCollapseEnd
             range.Collapse(collapseEnd)
         End If
+        'Track event
+        Globals.PlantUMLGizmoAddIn.ga.trackApp("PlantUML-gizmo-word", Globals.PlantUMLGizmoAddIn.versionInfo, "", If(replaced, "replaced", "inserted"), "insert")
+        'Globals.PlantUMLGizmoAddIn.ga.trackApp("video", "insert", If(replaced, "replaced", "inserted"), "")
     End Sub
 
     Private Sub PreviewOnChange(sender As Object, e As EventArgs) Handles SourceCode.TextChanged
@@ -40,7 +43,9 @@ Public Class PlantUML_editor
     Private Sub EditSelectedImageButtonClick(sender As Object, e As EventArgs) Handles EditSelectedImageButton.Click
         ' find selected image
         Dim active As Window = Globals.PlantUMLGizmoAddIn.Application.ActiveWindow
+        Dim isImageSelected As Boolean = False
         If active.Selection.Type = WdSelectionType.wdSelectionInlineShape Then
+            isImageSelected = True
             Dim image = active.Selection.InlineShapes.Item(1)
             ' get image's hyperlink
             Dim url As Uri
@@ -54,6 +59,9 @@ Public Class PlantUML_editor
             ' fix CRLF problems 
             SourceCode.Text = System.Text.RegularExpressions.Regex.Replace(decodedText, "(\r\n|\n|\r)", vbCrLf)
         End If
+        'Track event
+        Globals.PlantUMLGizmoAddIn.ga.trackApp("PlantUML-gizmo-word", Globals.PlantUMLGizmoAddIn.versionInfo, "", If(isImageSelected, "success", "noSelection"), "edit-selected")
+        'Globals.PlantUMLGizmoAddIn.ga.trackEvent("video", "edit", If(isImageSelected, "success", "noSelection"), "")
 
     End Sub
 
