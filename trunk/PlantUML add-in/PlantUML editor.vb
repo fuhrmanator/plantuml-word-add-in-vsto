@@ -2,45 +2,77 @@
 Imports System.IO.Compression
 Imports System.Threading.Tasks
 Imports Microsoft.Office.Interop.Word
+Imports System.Timers
+
 Public Class PlantUML_editor
     Private nextPreviewTime As Date
-    Dim UPDATE_DELAY_MS As Double = 500
-    Dim updatePending As Boolean
-
-
+    Dim UPDATE_DELAY_MS As Double = 2000
+    'Dim updatePending As Boolean
+    Dim updateTimer As Timers.Timer
+    Private Sub enableButtons(ByVal state As Boolean)
+        InsertButton.Enabled = state
+        EditSelectedImageButton.Enabled = state
+    End Sub
     Private Sub InsertButtonClick(sender As Object, e As EventArgs) Handles InsertButton.Click
         Dim currentSelection As Word.Selection = Globals.PlantUMLGizmoAddIn.Application.ActiveWindow.Selection
         Dim replaced As Boolean = currentSelection.Type = WdSelectionType.wdSelectionInlineShape
         Dim range As Word.Range = currentSelection.Range
 
+        'System.Diagnostics.Debug.Print("Replaced is " & replaced.ToString)
+
+        enableButtons(False)
         'delete selected image (replace behavior)
         If replaced Then
             currentSelection.Delete(Word.WdUnits.wdCharacter, currentSelection.End - currentSelection.Start)
         End If
 
-        Dim picture = range.InlineShapes.AddPicture(Preview.Url.AbsoluteUri, True)
-        Globals.PlantUMLGizmoAddIn.Application.ActiveDocument.Hyperlinks.Add(picture, Preview.Url.AbsoluteUri)
-        'move cursor after inserted picture
-        currentSelection.MoveRight(Word.WdUnits.wdCharacter, 1, Word.WdMovementType.wdMove)
-
-        'replace selected image
-        If replaced Then
-            'Move cursor after selection
-            Dim collapseEnd = Word.WdCollapseDirection.wdCollapseEnd
-            range.Collapse(collapseEnd)
+        Dim imageURL = getURLFromSource()
+        Dim picture = range.InlineShapes.AddPicture(imageURL, True)
+        Globals.PlantUMLGizmoAddIn.Application.ActiveDocument.Hyperlinks.Add(picture, imageURL)
+        If (Not replaced) Then
+            'move cursor after inserted picture
+            currentSelection.MoveRight(Word.WdUnits.wdCharacter, 1, Word.WdMovementType.wdMove)
+        Else
+            'select inserted picture
+            range.MoveEnd(Word.WdUnits.wdCharacter, 1)
+            range.Select()
         End If
+
+        'If replaced Then
+        '    'Move cursor after selection
+        '    Dim collapseEnd = Word.WdCollapseDirection.wdCollapseEnd
+        '    range.Collapse(collapseEnd)
+        'End If
         'Track event
         Globals.PlantUMLGizmoAddIn.ga.trackApp("PlantUML-gizmo-word", Globals.PlantUMLGizmoAddIn.versionInfo, "", If(replaced, "replaced", "inserted"), "insert")
         'Globals.PlantUMLGizmoAddIn.ga.trackApp("video", "insert", If(replaced, "replaced", "inserted"), "")
+        enableButtons(True)
+
     End Sub
 
     Private Sub PreviewOnChange(sender As Object, e As EventArgs) Handles SourceCode.TextChanged
-        Dim sanitizedText As String
-        'TODO Throttle updates as typing occurs
-        sanitizedText = System.Web.HttpUtility.UrlDecode(System.Web.HttpUtility.UrlEncode(SourceCode.Text).Replace("+", "%20"))
-        Preview.Navigate("http://www.plantuml.com/plantuml/png/" & Encode64(ZipStr(sanitizedText)))
+        ' Previews should only occur at a certain frequency so as not to overload the PlantUML server
+        If (updateTimer Is Nothing) Then
+            updateTimer = New Timers.Timer(UPDATE_DELAY_MS)
+            AddHandler updateTimer.Elapsed, New ElapsedEventHandler(AddressOf UpdateElapsed)
+            'System.Diagnostics.Debug.Print("Initialized timer")
+        End If
+        If (Not updateTimer.Enabled) Then
+            'updatePending = True
+            updateTimer.Enabled = True
+        End If
     End Sub
+    Private Sub UpdateElapsed()
+        Dim imageURL As String
+        imageURL = getURLFromSource()
+        Preview.Navigate(imageURL)
+        'updatePending = False
+        'System.Diagnostics.Debug.Print("Updated image.")
+        updateTimer.Enabled = False
+    End Sub
+
     Private Sub EditSelectedImageButtonClick(sender As Object, e As EventArgs) Handles EditSelectedImageButton.Click
+        enableButtons(False)
         ' find selected image
         Dim active As Window = Globals.PlantUMLGizmoAddIn.Application.ActiveWindow
         Dim isImageSelected As Boolean = False
@@ -48,7 +80,7 @@ Public Class PlantUML_editor
             isImageSelected = True
             Dim image = active.Selection.InlineShapes.Item(1)
             ' get image's hyperlink
-            Dim url As Uri
+            'Dim url As Uri
             Dim urlString As String '= url.AbsoluteUri
             urlString = image.Hyperlink.Address
             'url = New Uri("http://www.plantuml.com/plantuml/png/SoWkIImgAStDuV9FoafDBb6mgT7LLN0iAagizCaiBk622Liff1QM9kOKQsXomIM1WX3Pw5Y5r9pKtDIy4fV4aaGK1SMPLQb0FLmEgNafG5i0")
@@ -62,6 +94,7 @@ Public Class PlantUML_editor
         'Track event
         Globals.PlantUMLGizmoAddIn.ga.trackApp("PlantUML-gizmo-word", Globals.PlantUMLGizmoAddIn.versionInfo, "", If(isImageSelected, "success", "noSelection"), "edit-selected")
         'Globals.PlantUMLGizmoAddIn.ga.trackEvent("video", "edit", If(isImageSelected, "success", "noSelection"), "")
+        enableButtons(True)
 
     End Sub
 
@@ -203,6 +236,11 @@ Public Class PlantUML_editor
     Private Sub LinkLabel2_LinkClicked(sender As Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel2.LinkClicked
         System.Diagnostics.Process.Start("mailto:christopher.fuhrman@etsmtl.ca?subject=PlantUML%20Gizmo%20for%20Word")
     End Sub
+
+    Private Function getURLFromSource() As String
+        Return "http://www.plantuml.com/plantuml/png/" & Encode64(ZipStr(System.Web.HttpUtility.UrlDecode(System.Web.HttpUtility.UrlEncode(SourceCode.Text).Replace("+", "%20"))))
+    End Function
+
 End Class
 
 
