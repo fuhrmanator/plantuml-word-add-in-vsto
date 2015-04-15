@@ -35,7 +35,7 @@
     <PublishUrl>\\saumon.ens.ad.etsmtl.ca\FSWEB\profs\cfuhrman\PlantUMLGizmoWord\</PublishUrl>
     <InstallUrl>http://profs.etsmtl.ca/cfuhrman/PlantUMLGizmoWord/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.10</ApplicationVersion>
+    <ApplicationVersion>1.0.0.11</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -224,12 +224,14 @@
     <Compile Include="PlantUMLGizmoAddIn.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Settings.vb" />
     <EmbeddedResource Include="PlantUML editor.resx">
       <DependentUpon>PlantUML editor.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlantUMLGizmoRibbon.resx">
       <DependentUpon>PlantUMLGizmoRibbon.vb</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="PlantUML add-in_TemporaryKey.pfx" />
     <None Include="PlantUMLGizmoAddIn.Designer.xml">
       <DependentUpon>PlantUMLGizmoAddIn.vb</DependentUpon>

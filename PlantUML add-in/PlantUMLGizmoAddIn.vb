@@ -11,9 +11,9 @@ Public Class PlantUMLGizmoAddIn
     Private Sub ThisAddIn_Startup() Handles Me.Startup
         myUserControl1 = New PlantUML_editor
         myCustomTaskPane = Me.CustomTaskPanes.Add(myUserControl1, "PlantUML Gizmo")
-        myCustomTaskPane.Visible = True
+        myCustomTaskPane.Visible = My.Settings.ShowTaskPaneSetting
         myCustomTaskPane.Width = 300
-        ga.trackApp("PlantUML-gizmo-word", versionInfo, "", "", "task-pane")
+        If myCustomTaskPane.Visible Then ga.trackApp("PlantUML-gizmo-word", versionInfo, "", "", "task-pane")
     End Sub
 
     Private Sub ThisAddIn_Shutdown() Handles Me.Shutdown
@@ -54,6 +54,8 @@ Public Class PlantUMLGizmoAddIn
 
         '    End If
         'End If
+        System.Diagnostics.Debug.Print("Version info: " & versionInfo)
+
         Return versionInfo
         '        Return "1.0"
     End Function
