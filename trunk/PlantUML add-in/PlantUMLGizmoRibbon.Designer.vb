@@ -2,7 +2,7 @@
     Inherits Microsoft.Office.Tools.Ribbon.RibbonBase
 
     <System.Diagnostics.DebuggerNonUserCode()> _
-   Public Sub New(ByVal container As System.ComponentModel.IContainer)
+    Public Sub New(ByVal container As System.ComponentModel.IContainer)
         MyClass.New()
 
         'Required for Windows.Forms Class Composition Designer support
@@ -44,6 +44,7 @@
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.DisplayTaskPane = Me.Factory.CreateRibbonCheckBox
+        Me.AllowAnalytics = Me.Factory.CreateRibbonCheckBox
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         '
@@ -57,6 +58,7 @@
         'Group1
         '
         Me.Group1.Items.Add(Me.DisplayTaskPane)
+        Me.Group1.Items.Add(Me.AllowAnalytics)
         Me.Group1.Label = "PlantUML Gizmo"
         Me.Group1.Name = "Group1"
         '
@@ -64,6 +66,12 @@
         '
         Me.DisplayTaskPane.Label = "Show task pane"
         Me.DisplayTaskPane.Name = "DisplayTaskPane"
+        '
+        'AllowAnalytics
+        '
+        Me.AllowAnalytics.Checked = True
+        Me.AllowAnalytics.Label = "Improve add-in by contributing usage data"
+        Me.AllowAnalytics.Name = "AllowAnalytics"
         '
         'PlantUMLGizmoRibbon
         '
@@ -80,6 +88,7 @@
     Friend WithEvents Tab1 As Microsoft.Office.Tools.Ribbon.RibbonTab
     Friend WithEvents Group1 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents DisplayTaskPane As Microsoft.Office.Tools.Ribbon.RibbonCheckBox
+    Friend WithEvents AllowAnalytics As Microsoft.Office.Tools.Ribbon.RibbonCheckBox
 End Class
 
 Partial Class ThisRibbonCollection

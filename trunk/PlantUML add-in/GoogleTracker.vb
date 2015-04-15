@@ -16,30 +16,33 @@ Public Class GoogleTracker
 
     Public Sub New(trackingID As String)
         googleTrackingID = trackingID
+        System.Diagnostics.Debug.Print("googleVersion = " & googleVersion)
     End Sub
 
     Public Sub trackApp(appName As String, appVersion As String, appID As String, appInstallerID As String, screenName As String)
-        Dim ht As NameValueCollection = baseValues()
-        ht.Add("t", "screenview")
-        ht.Add("an", appName)
-        ht.Add("av", appVersion)
-        If appID <> Nothing Then ht.Add("aid", appID)
-        If appInstallerID <> Nothing Then ht.Add("aiid", appInstallerID)
-        ht.Add("cd", screenName)
+        If (My.Settings.AllowAnalyticsSetting = True) Then
+            Dim ht As NameValueCollection = baseValues()
+            ht.Add("t", "screenview")
+            ht.Add("an", appName)
+            ht.Add("av", appVersion)
+            If appID <> Nothing Then ht.Add("aid", appID)
+            If appInstallerID <> Nothing Then ht.Add("aiid", appInstallerID)
+            ht.Add("cd", screenName)
 
-        postData(ht)
-
+            postData(ht)
+        End If
     End Sub
     Public Sub trackEvent(category As String, action As String, label As String, value As String)
-        Dim ht As NameValueCollection = baseValues()
-        ht.Add("t", "event")
-        ht.Add("ec", category)
-        ht.Add("ea", action)
-        If label <> Nothing Then ht.Add("el", label)
-        If value <> Nothing Then ht.Add("ev", value)
+        If (My.Settings.AllowAnalyticsSetting = True) Then
+            Dim ht As NameValueCollection = baseValues()
+            ht.Add("t", "event")
+            ht.Add("ec", category)
+            ht.Add("ea", action)
+            If label <> Nothing Then ht.Add("el", label)
+            If value <> Nothing Then ht.Add("ev", value)
 
-        postData(ht)
-
+            postData(ht)
+        End If
     End Sub
     Private Function baseValues() As NameValueCollection
         Dim ht As NameValueCollection = New NameValueCollection
