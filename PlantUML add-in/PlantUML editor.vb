@@ -28,7 +28,16 @@ Public Class PlantUML_editor
 
         Dim imageURL = getURLFromSource()
         Dim picture = range.InlineShapes.AddPicture(imageURL, True)
-        Globals.PlantUMLGizmoAddIn.Application.ActiveDocument.Hyperlinks.Add(picture, imageURL)
+        Dim hyperlink As Hyperlink = Globals.PlantUMLGizmoAddIn.Application.ActiveDocument.Hyperlinks.Add(picture, imageURL)
+        'make sure imageURL not truncated
+        If (Not imageURL.Equals(hyperlink.Address)) Then
+            'log error
+            System.Diagnostics.Debug.Print("URL generated from source did not match that added to Hyperlink.")
+            System.Diagnostics.Debug.Print("URL generated from source:")
+            System.Diagnostics.Debug.Print(imageURL)
+            System.Diagnostics.Debug.Print("URL added to hyperlink:")
+            System.Diagnostics.Debug.Print(hyperlink.Address)
+        End If
         If (Not replaced) Then
             'move cursor after inserted picture
             currentSelection.MoveRight(Word.WdUnits.wdCharacter, 1, Word.WdMovementType.wdMove)
@@ -213,7 +222,7 @@ Public Class PlantUML_editor
         Return DateTime.Now < nextPreviewTime
     End Function
 
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs)
 
     End Sub
 
