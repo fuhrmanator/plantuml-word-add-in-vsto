@@ -14,9 +14,9 @@ It requires .NET 4.0 as well as some VSTO 2010 files to run.
 To install this on your Windows machine, follow these steps: 
 
  * In Windows, add http://profs.etsmtl.ca/ to the "Trusted Sites" zone (do not require https:). 
-   For more information, see how to add sites to zones. 
+   For more information, see [how to add sites to zones](http://windows.microsoft.com/en-us/windows/security-zones-adding-removing-websites). 
  * In Internet Explorer (I'm not sure it works with other browsers), download and run [setup.exe](http://profs.etsmtl.ca/cfuhrman/PlantUMLGizmoWord/setup.exe).
- * You should see a warning that the Publisher cannot be verified. This is normal because currently there is no certificate for this tool. However, you can verify that it's indeed<br/> 
+ * You should see a warning that the **Publisher cannot be verified**. This is normal because currently there is no certificate for this tool. However, you can verify that it's indeed<br/> 
 From: `http://profs.etsmtl.ca/cfuhrman/PlantUMLGizmoWord/PlantUML Gizmo Word Add-in.vsto`
 
 If you don't trust this tool, then do not install it.
